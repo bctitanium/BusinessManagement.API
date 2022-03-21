@@ -13,9 +13,9 @@ namespace BusinessManagement.Core.Database
         public virtual DbSet<DetailedReceipts>  DetailedReceipts    { get; set; } = null!;
         public virtual DbSet<Product>           Products            { get; set; } = null!;
         public virtual DbSet<ProductBrand>      ProductBrands       { get; set; } = null!;
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
         public virtual DbSet<ProductMaterial>   ProductMaterials    { get; set; } = null!;
         public virtual DbSet<ProductSupplier>   ProductSuppliers    { get; set; } = null!;
-        public virtual DbSet<ProductType>       ProductTypes        { get; set; } = null!;
         public virtual DbSet<Receipt>           Receipts            { get; set; } = null!;
         public virtual DbSet<Store>             Stores              { get; set; } = null!;
 
@@ -25,7 +25,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<User>(entity =>
             {
-                //entity.ToTable("User");
+                entity.ToTable("User");
                 entity.HasIndex(e => e.Guid)
                       .IsUnique();
 
@@ -38,7 +38,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<UserRole>(entity =>
             {
-                //entity.ToTable("UserRole");
+                entity.ToTable("UserRole");
 
                 entity.HasOne(ur => ur.Role)
                       .WithMany(r => r!.UserRoles)
@@ -53,89 +53,94 @@ namespace BusinessManagement.Core.Database
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            /*builder.Entity<DetailedReceipts>(entity =>
+            builder.Entity<DetailedReceipts>(entity =>
             {
-                //entity.ToTable("DetailedReceipt");
+                entity.ToTable("DetailedReceipt");
 
                 entity.HasIndex(e => e.Id).IsUnique();
             });
 
             builder.Entity<Product>(entity =>
             {
-                //entity.ToTable("Product");
+                entity.ToTable("Product");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.ProductName).IsRequired().HasMaxLength(150).HasColumnType("nvarchar");
+                entity.Property(e => e.ProductName).IsRequired().HasMaxLength(150).HasColumnType("nvarchar");
                 
-                //entity.Property(e => e.SellPrice).IsRequired().HasColumnType("float");
+                entity.Property(e => e.SellPrice).IsRequired().HasColumnType("float");
                 
-                //entity.Property(e => e.BuyPrice).IsRequired().HasColumnType("float");
+                entity.Property(e => e.BuyPrice).IsRequired().HasColumnType("float");
                 
-                //entity.Property(e => e.Quantity).IsRequired().HasColumnType("int");
+                entity.Property(e => e.Quantity).IsRequired().HasColumnType("int");
 
-                //entity.Property(e => e.Size).IsRequired().HasColumnType("int");
+                entity.Property(e => e.Size).IsRequired().HasColumnType("int");
             });
 
             builder.Entity<ProductBrand>(entity =>
             {
-                //entity.ToTable("ProductBrand");
+                entity.ToTable("ProductBrand");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.ProductBrandName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductBrandName).IsRequired().HasColumnType("nvarchar");
+
+                entity.Property(e => e.CountryCode).IsRequired().HasColumnType("varchar");
+            });
+
+            builder.Entity<ProductCategory>(entity =>
+            {
+                entity.ToTable("ProductCategory");
+
+                entity.HasIndex(e => e.Id).IsUnique();
+
+                entity.Property(e => e.Category).IsRequired().HasColumnType("nvarchar");
+
+                entity.Property(e => e.
+
             });
 
             builder.Entity<ProductMaterial>(entity =>
             {
-                //entity.ToTable("ProductMaterial");
+                entity.ToTable("ProductMaterial");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.ProductNaterialName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductNaterialName).IsRequired().HasColumnType("nvarchar");
             });
 
             builder.Entity<ProductSupplier>(entity =>
             {
-                //entity.ToTable("ProductSupplier");
+                entity.ToTable("ProductSupplier");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar");
-            });
-
-            builder.Entity<ProductType>(entity =>
-            {
-                //entity.ToTable("ProductType");
-
-                entity.HasIndex(e => e.Id).IsUnique();
-
-                //entity.Property(e => e.Type).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar");
             });
 
             builder.Entity<Receipt>(entity =>
             {
-                //entity.ToTable("Receipt");
+                entity.ToTable("Receipt");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.ReceiptDate).IsRequired().HasColumnType("datetime");
+                entity.Property(e => e.ReceiptDate).IsRequired().HasColumnType("datetime");
 
-                //entity.Property(e => e.ReceiptAmount).IsRequired().HasColumnType("float");
+                entity.Property(e => e.ReceiptAmount).IsRequired().HasColumnType("float");
             });
 
             builder.Entity<Store>(entity =>
             {
-                //entity.ToTable("Store");
+                entity.ToTable("Store");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                //entity.Property(e => e.StoreName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.StoreName).IsRequired().HasColumnType("nvarchar");
 
-                //entity.Property(e => e.StoreAddress).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.StoreAddress).IsRequired().HasColumnType("nvarchar");
 
-                //entity.Property(e => e.StorePhone).IsRequired().HasColumnType("nvarchar");
-            });*/
+                entity.Property(e => e.StorePhone).IsRequired().HasColumnType("nvarchar");
+            });
         }
     }
 }
