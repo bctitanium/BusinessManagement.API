@@ -96,8 +96,9 @@ namespace BusinessManagement.Core.Database
 
                 entity.Property(e => e.Category).IsRequired().HasColumnType("nvarchar");
 
-                entity.Property(e => e.
+                entity.Property(e => e.SizeCode).IsRequired().HasColumnType("varchar");
 
+                entity.Property(e => e.SizeValue).IsRequired().HasColumnType("int");
             });
 
             builder.Entity<ProductMaterial>(entity =>
