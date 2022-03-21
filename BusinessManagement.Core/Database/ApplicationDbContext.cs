@@ -10,14 +10,14 @@ namespace BusinessManagement.Core.Database
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public virtual DbSet<DetailedReceipts> DetailedReceipts { get; set; } = null!;
-        public virtual DbSet<Product> Products { get; set; } = null!;
-        public virtual DbSet<ProductBrand> ProductBrands { get; set; } = null!;
-        public virtual DbSet<ProductMaterial> ProductMaterials { get; set; } = null!;
-        public virtual DbSet<ProductSupplier> ProductSuppliers { get; set; } = null!;
-        public virtual DbSet<ProductType> ProductTypes { get; set; } = null!;
-        public virtual DbSet<Receipt> Receipts { get; set; } = null!;
-        public virtual DbSet<Store> Stores { get; set; } = null!;
+        public virtual DbSet<DetailedReceipts>  DetailedReceipts    { get; set; } = null!;
+        public virtual DbSet<Product>           Products            { get; set; } = null!;
+        public virtual DbSet<ProductBrand>      ProductBrands       { get; set; } = null!;
+        public virtual DbSet<ProductMaterial>   ProductMaterials    { get; set; } = null!;
+        public virtual DbSet<ProductSupplier>   ProductSuppliers    { get; set; } = null!;
+        public virtual DbSet<ProductType>       ProductTypes        { get; set; } = null!;
+        public virtual DbSet<Receipt>           Receipts            { get; set; } = null!;
+        public virtual DbSet<Store>             Stores              { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,33 +25,44 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<User>(entity =>
             {
-                entity.ToTable("User");
+                //entity.ToTable("User");
+                entity.HasIndex(e => e.Guid)
+                      .IsUnique();
 
-                entity.HasIndex(e => e.Guid).IsUnique();
+                entity.Property(e => e.Guid)
+                      .HasDefaultValue("NEWID()");
 
-                entity.Property(e => e.Guid).HasDefaultValue("NEWID()");
-
-                //entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                entity.Property(e => e.CreatedDate)
+                      .HasColumnType("datetime");
             });
 
             builder.Entity<UserRole>(entity =>
             {
-                entity.ToTable("UserRole");
+                //entity.ToTable("UserRole");
 
-                entity.HasOne(ur => ur.Role).WithMany(r => r!.UserRoles).HasForeignKey(ur => ur.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
-                entity.HasOne(ur => ur.User).WithMany(u => u!.UserRoles).HasForeignKey(ur => ur.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(ur => ur.Role)
+                      .WithMany(r => r!.UserRoles)
+                      .HasForeignKey(ur => ur.RoleId)
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ur => ur.User)
+                      .WithMany(u => u!.UserRoles)
+                      .HasForeignKey(ur => ur.UserId)
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<DetailedReceipts>(entity =>
+            /*builder.Entity<DetailedReceipts>(entity =>
             {
-                entity.ToTable("DetailedReceipt");
+                //entity.ToTable("DetailedReceipt");
 
                 entity.HasIndex(e => e.Id).IsUnique();
             });
 
             builder.Entity<Product>(entity =>
             {
-                entity.ToTable("Product");
+                //entity.ToTable("Product");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -68,7 +79,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<ProductBrand>(entity =>
             {
-                entity.ToTable("ProductBrand");
+                //entity.ToTable("ProductBrand");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -77,7 +88,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<ProductMaterial>(entity =>
             {
-                entity.ToTable("ProductMaterial");
+                //entity.ToTable("ProductMaterial");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -86,7 +97,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<ProductSupplier>(entity =>
             {
-                entity.ToTable("ProductSupplier");
+                //entity.ToTable("ProductSupplier");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -95,7 +106,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<ProductType>(entity =>
             {
-                entity.ToTable("ProductType");
+                //entity.ToTable("ProductType");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -104,7 +115,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<Receipt>(entity =>
             {
-                entity.ToTable("Receipt");
+                //entity.ToTable("Receipt");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -115,7 +126,7 @@ namespace BusinessManagement.Core.Database
 
             builder.Entity<Store>(entity =>
             {
-                entity.ToTable("Store");
+                //entity.ToTable("Store");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
@@ -124,7 +135,7 @@ namespace BusinessManagement.Core.Database
                 //entity.Property(e => e.StoreAddress).IsRequired().HasColumnType("nvarchar");
 
                 //entity.Property(e => e.StorePhone).IsRequired().HasColumnType("nvarchar");
-            });
+            });*/
         }
     }
 }
