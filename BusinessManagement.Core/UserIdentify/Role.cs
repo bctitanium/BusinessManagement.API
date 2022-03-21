@@ -1,15 +1,9 @@
-﻿using BusinessManagement.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace BusinessManagement.Core.UserIdentify
 {
-    public class Role : BaseEntity
+    public class Role : IdentityRole
     {
-        public virtual ICollection<StaffRole> StaffRoles { get; } = new HashSet<StaffRole>();
-        public virtual ICollection<CustomerRoles> CustomerRoles { get; } = new HashSet<CustomerRoles>();
+        public virtual ICollection<UserRole> UserRoles { get; } = new HashSet<UserRole>();
     }
 }
