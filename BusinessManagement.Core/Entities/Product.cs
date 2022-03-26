@@ -13,7 +13,7 @@ namespace BusinessManagement.Core.Entities
         public SizeChart  Size               { get; set; }
         public string?    ImageFile          { get; set; }
 
-        public virtual Store? Stores         { get; set; }
+        public virtual Store? Stores { get; set; }
 
         public enum SizeChart
         {

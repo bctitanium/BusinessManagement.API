@@ -87,6 +87,13 @@ namespace BusinessManagement.Core.Database
                 entity.Property(e => e.Size)
                       .IsRequired()
                       .HasColumnType("int");
+
+                //coi dùm cái này có phải là [store 1..n với product] hay ko?
+                entity.HasOne(p => p.Stores)
+                      .WithMany(s => s.Products)
+                      .HasForeignKey(s => s.Id)
+                      .IsRequired()
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<ProductBrand>(entity =>
@@ -130,6 +137,7 @@ namespace BusinessManagement.Core.Database
 
                 entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar");
 
+                //coi dùm cái này nè, nó có phải là [store 1..n với supplier] ko?
                 entity.HasOne(ps => ps.Stores)
                       .WithMany(s => s!.ProductSuppliers)
                       .HasForeignKey(ps => ps.Id)
