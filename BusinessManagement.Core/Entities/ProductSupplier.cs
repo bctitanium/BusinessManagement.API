@@ -4,6 +4,6 @@
     {
         public string ProductSupplierName { get; set; } = string.Empty;
 
-        public Store? Store { get; set; }
+        public virtual Store? Stores { get; set; }
     }
 }
