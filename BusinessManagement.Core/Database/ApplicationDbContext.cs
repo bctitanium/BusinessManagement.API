@@ -91,7 +91,7 @@ namespace BusinessManagement.Core.Database
                 //coi dùm cái này có phải là [store 1..n với product] hay ko?
                 entity.HasOne(p => p.Stores)
                       .WithMany(s => s!.Products) //dấu ! ở s! là gì vậy?
-                      .HasForeignKey(s => s.Id)
+                      .HasForeignKey(s => s.StoreId)
                       .IsRequired()
                       .OnDelete(DeleteBehavior.Cascade);
             });
@@ -140,7 +140,7 @@ namespace BusinessManagement.Core.Database
                 //coi dùm cái này nè, nó có phải là [store 1..n với supplier] ko?
                 entity.HasOne(ps => ps.Stores)
                       .WithMany(s => s!.ProductSuppliers)
-                      .HasForeignKey(ps => ps.Id)
+                      .HasForeignKey(ps => ps.StoresId)
                       .IsRequired()
                       .OnDelete(DeleteBehavior.Cascade);
             });
