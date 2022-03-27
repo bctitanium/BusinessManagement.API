@@ -1,4 +1,8 @@
-﻿using BusinessManagement.Core.Database;
+﻿using AutoMapper;
+using BusinessManagement.API.DTOs.Mapping;
+using BusinessManagement.Contract;
+using BusinessManagement.Core.Database;
+using BusinessManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -8,6 +12,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "BuinessManahementApi", Version = "v1" })); //cho swagger
 builder.Services.AddControllers(); //add tk này là zo nè chưa hiểu controller thì có liên qua j tới cái add-migration lắm tại cũng chưa có cái controller nào
 builder.Services.AddCors();
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClientPermission", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .WithOrigins("http://localhost:5168")
+              .AllowCredentials();
+    });
+});
+
+var mapperConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
@@ -28,5 +48,7 @@ app.UseCors("ClientPermission");
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 app.Run();

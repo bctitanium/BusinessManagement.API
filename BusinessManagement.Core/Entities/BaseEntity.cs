@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BusinessManagement.Core.Entities
+﻿namespace BusinessManagement.Core.Entities
 {
     public class BaseEntity
     {
-        public virtual string Id { get; set; } = string.Empty;
+        public virtual string Id { get; set; } = Guid.NewGuid().ToString();
     }
 }

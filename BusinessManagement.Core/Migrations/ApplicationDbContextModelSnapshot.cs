@@ -39,7 +39,10 @@ namespace BusinessManagement.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DetailedReceipts");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("DetailedReceipt", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Product", b =>
@@ -48,10 +51,8 @@ namespace BusinessManagement.Core.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double?>("BuyPrice")
+                        .IsRequired()
                         .HasColumnType("float");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageFile")
                         .HasColumnType("nvarchar(max)");
@@ -61,7 +62,8 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -78,9 +80,12 @@ namespace BusinessManagement.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductBrand", b =>
@@ -88,13 +93,51 @@ namespace BusinessManagement.Core.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
                     b.Property<string>("ProductBrandName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductBrands");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("ProductBrand", (string)null);
+                });
+
+            modelBuilder.Entity("BusinessManagement.Core.Entities.ProductCategory", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar");
+
+                    b.Property<string>("CategoryDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SizeCode")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<int?>("SizeValue")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("ProductCategory", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductMaterial", b =>
@@ -104,11 +147,14 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("ProductNaterialName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductMaterials");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("ProductMaterial", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductSupplier", b =>
@@ -118,24 +164,20 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("ProductSupplierName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductSuppliers");
-                });
-
-            modelBuilder.Entity("BusinessManagement.Core.Entities.ProductType", b =>
-                {
-                    b.Property<string>("Id")
+                    b.Property<string>("StoresId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("ProductTypes");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("StoresId");
+
+                    b.ToTable("ProductSupplier", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Receipt", b =>
@@ -147,11 +189,15 @@ namespace BusinessManagement.Core.Migrations
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("ReceiptDate")
-                        .HasColumnType("datetime2");
+                        .IsRequired()
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Receipts");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Receipt", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Store", b =>
@@ -161,19 +207,22 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("StoreAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
                     b.Property<string>("StoreName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
                     b.Property<string>("StorePhone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stores");
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Store", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.UserIdentify.Role", b =>
@@ -301,7 +350,7 @@ namespace BusinessManagement.Core.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.UserIdentify.UserRole", b =>
@@ -316,7 +365,7 @@ namespace BusinessManagement.Core.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -412,13 +461,24 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Product", b =>
                 {
-                    b.HasOne("BusinessManagement.Core.Entities.Store", "Store")
+                    b.HasOne("BusinessManagement.Core.Entities.Store", "Stores")
                         .WithMany("Products")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Store");
+                    b.Navigation("Stores");
+                });
+
+            modelBuilder.Entity("BusinessManagement.Core.Entities.ProductSupplier", b =>
+                {
+                    b.HasOne("BusinessManagement.Core.Entities.Store", "Stores")
+                        .WithMany("ProductSuppliers")
+                        .HasForeignKey("StoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stores");
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.UserIdentify.UserRole", b =>
@@ -478,6 +538,8 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Store", b =>
                 {
+                    b.Navigation("ProductSuppliers");
+
                     b.Navigation("Products");
                 });
 
