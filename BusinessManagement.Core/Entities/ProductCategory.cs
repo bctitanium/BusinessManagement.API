@@ -6,6 +6,6 @@
         public string? CategoryDescription { get; set; }
         public string? Gender              { get; set; }
         public string  SizeCode            { get; set; } = string.Empty;
-        public string  SizeValue           { get; set; } = string.Empty;
+        public int?    SizeValue           { get; set; }
     }
 }
