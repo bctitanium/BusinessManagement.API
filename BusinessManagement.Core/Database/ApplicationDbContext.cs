@@ -101,9 +101,9 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.ProductBrandName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductBrandName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
 
-                entity.Property(e => e.CountryCode).IsRequired().HasColumnType("varchar");
+                entity.Property(e => e.CountryCode).IsRequired().HasColumnType("varchar").HasMaxLength(5);
             });
 
             builder.Entity<ProductCategory>(entity =>
@@ -112,11 +112,11 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.Category).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.Category).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
 
-                entity.Property(e => e.SizeCode).IsRequired().HasColumnType("varchar");
+                entity.Property(e => e.SizeCode).IsRequired().HasColumnType("varchar").HasMaxLength(5);
 
-                entity.Property(e => e.SizeValue).IsRequired().HasColumnType("int");
+                entity.Property(e => e.SizeValue).IsRequired();
             });
 
             builder.Entity<ProductMaterial>(entity =>
@@ -125,7 +125,7 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.ProductNaterialName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductNaterialName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
             });
 
             builder.Entity<ProductSupplier>(entity =>
@@ -134,7 +134,7 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar").HasMaxLength(50);
 
                 entity.HasOne(ps => ps.Stores)
                       .WithMany(s => s.ProductSuppliers)
@@ -160,11 +160,11 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.StoreName).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.StoreName).IsRequired().HasColumnType("nvarchar").HasMaxLength(50);
 
-                entity.Property(e => e.StoreAddress).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.StoreAddress).IsRequired().HasColumnType("nvarchar").HasMaxLength(250);
 
-                entity.Property(e => e.StorePhone).IsRequired().HasColumnType("nvarchar");
+                entity.Property(e => e.StorePhone).HasColumnType("nvarchar").HasMaxLength(20);
             });
         }
     }

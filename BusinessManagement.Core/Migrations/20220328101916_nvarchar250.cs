@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BusinessManagement.Core.Migrations
 {
-    public partial class ChangeGuID : Migration
+    public partial class nvarchar250 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,10 +27,10 @@ namespace BusinessManagement.Core.Migrations
                 name: "DetailedReceipt",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Product = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,9 +41,10 @@ namespace BusinessManagement.Core.Migrations
                 name: "ProductBrand",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductBrandName = table.Column<string>(type: "nvarchar", nullable: false),
-                    CountryCode = table.Column<string>(type: "varchar", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductBrandName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CountryCode = table.Column<string>(type: "varchar(5)", maxLength: 5, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,11 +55,12 @@ namespace BusinessManagement.Core.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Category = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SizeCode = table.Column<string>(type: "varchar", nullable: false),
+                    SizeCode = table.Column<string>(type: "varchar(5)", maxLength: 5, nullable: false),
                     SizeValue = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -70,8 +72,9 @@ namespace BusinessManagement.Core.Migrations
                 name: "ProductMaterial",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductNaterialName = table.Column<string>(type: "nvarchar", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductNaterialName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +85,8 @@ namespace BusinessManagement.Core.Migrations
                 name: "Receipt",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ReceiptDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     ReceiptAmount = table.Column<double>(type: "float", nullable: false)
                 },
@@ -95,10 +99,11 @@ namespace BusinessManagement.Core.Migrations
                 name: "Store",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StoreName = table.Column<string>(type: "nvarchar", nullable: false),
-                    StoreAddress = table.Column<string>(type: "nvarchar", nullable: false),
-                    StorePhone = table.Column<string>(type: "nvarchar", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    StoreAddress = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    StorePhone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -164,8 +169,9 @@ namespace BusinessManagement.Core.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StoreId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BuyPrice = table.Column<double>(type: "float", nullable: false),
@@ -189,9 +195,10 @@ namespace BusinessManagement.Core.Migrations
                 name: "ProductSupplier",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StoresId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductSupplierName = table.Column<string>(type: "nvarchar", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoresId = table.Column<int>(type: "int", nullable: false),
+                    ProductSupplierName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

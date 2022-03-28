@@ -4,7 +4,7 @@ namespace BusinessManagement.Core.Entities
 {
     public class Product : BaseEntity
     {
-        public string     StoreId            { get; set; } = string.Empty;
+        public int        StoreId            { get; set; }
         public string     ProductName        { get; set; } = string.Empty;
         public string?    ProductDescription { get; set; }
         public double?    BuyPrice           { get; set; }

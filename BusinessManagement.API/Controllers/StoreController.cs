@@ -20,7 +20,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAllStore(CancellationToken cancellationToken = default)
         {
             var store = await _storeRepository.FindAll().ToListAsync(cancellationToken);
             return Ok(_mapper.Map<IEnumerable<StoreDTO>>(store));
@@ -35,7 +35,41 @@ namespace BusinessManagement.API.Controllers
 
             await _storeRepository.SaveChangesAsync(cancellationToken);
 
-            return Ok(_mapper.Map<StoreDTO>(sdto));
+            return Ok(_mapper.Map<StoreDTO>(store));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditStore([FromBody] StoreDTO sdto, int id, CancellationToken cancellationToken = default)
+        {
+            var store = await _storeRepository.FindByIdAsync(id, cancellationToken);
+
+            if (store is null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(sdto, store);
+
+            await _storeRepository.SaveChangesAsync(cancellationToken);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStore(int id, CancellationToken cancellationToken = default)
+        {
+            var store = await _storeRepository.FindByIdAsync(id, cancellationToken);
+
+            if (store is null)
+            {
+                return NotFound();
+            }
+
+            _storeRepository.Delete(store);
+
+            await _storeRepository.SaveChangesAsync(cancellationToken);
+
+            return NoContent();
         }
     }
 }

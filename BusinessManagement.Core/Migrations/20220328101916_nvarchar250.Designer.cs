@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessManagement.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220327175514_ChangeGuID")]
-    partial class ChangeGuID
+    [Migration("20220328101916_nvarchar250")]
+    partial class nvarchar250
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,11 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.DetailedReceipts", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Product")
                         .IsRequired()
@@ -49,8 +49,11 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<double?>("BuyPrice")
                         .IsRequired()
@@ -76,9 +79,8 @@ namespace BusinessManagement.Core.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.Property<string>("StoreId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -92,16 +94,21 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductBrand", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CountryCode")
                         .IsRequired()
-                        .HasColumnType("varchar");
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<string>("ProductBrandName")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -113,12 +120,16 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductCategory", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("CategoryDescription")
                         .HasColumnType("nvarchar(max)");
@@ -128,7 +139,8 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("SizeCode")
                         .IsRequired()
-                        .HasColumnType("varchar");
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<int?>("SizeValue")
                         .IsRequired()
@@ -144,12 +156,16 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductMaterial", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ProductNaterialName")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -161,16 +177,19 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.ProductSupplier", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ProductSupplierName")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("StoresId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("StoresId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -184,8 +203,11 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Receipt", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<double>("ReceiptAmount")
                         .HasColumnType("float");
@@ -204,20 +226,26 @@ namespace BusinessManagement.Core.Migrations
 
             modelBuilder.Entity("BusinessManagement.Core.Entities.Store", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("StoreAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("StoreName")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("StorePhone")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
