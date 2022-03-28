@@ -25,9 +25,15 @@ namespace BusinessManagement.Repository
         public virtual IQueryable<T> FindAll(Expression<Func<T, bool>>? predicate = null)
             => _dbSet.WhereIf(predicate != null, predicate!);
 
-        public virtual async Task<T?> FindByIdAsync(string id)
+        public virtual async Task<T?> FindByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public virtual async Task<T?> FindByNameAsync(string name, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.FindAsync(name, cancellationToken);
+            //return await _dbSet.FindAsync(name);
         }
 
         public void Add(T entity)

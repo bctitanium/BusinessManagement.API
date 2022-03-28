@@ -2,6 +2,6 @@
 {
     public class BaseEntity
     {
-        public virtual string Id { get; set; } = Guid.NewGuid().ToString();
+        public virtual int Id { get; set; }
     }
 }
