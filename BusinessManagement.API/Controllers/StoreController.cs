@@ -20,14 +20,14 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllStore(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
         {
             var store = await _storeRepository.FindAll().ToListAsync(cancellationToken);
             return Ok(_mapper.Map<IEnumerable<StoreDTO>>(store));
         }
 
         [HttpPost]
-        public async Task<IActionResult> StoreRegister(StoreDTO sdto, CancellationToken cancellationToken = default) //cái này để tạo cửa hàng
+        public async Task<IActionResult> Create(StoreDTO sdto, CancellationToken cancellationToken = default) //cái này để tạo cửa hàng
         {
             var store = _mapper.Map<Store>(sdto);
 
@@ -39,7 +39,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditStore([FromBody] StoreDTO sdto, int id, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Update([FromBody] StoreDTO sdto, int id, CancellationToken cancellationToken = default)
         {
             var store = await _storeRepository.FindByIdAsync(id, cancellationToken);
 
@@ -56,7 +56,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStore(int id, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken = default)
         {
             var store = await _storeRepository.FindByIdAsync(id, cancellationToken);
 
