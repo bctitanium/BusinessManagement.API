@@ -135,6 +135,11 @@ namespace BusinessManagement.Core.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Season")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("SizeCode")
                         .IsRequired()
                         .HasMaxLength(5)
@@ -143,6 +148,11 @@ namespace BusinessManagement.Core.Migrations
                     b.Property<int?>("SizeValue")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("Weather")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -186,7 +196,7 @@ namespace BusinessManagement.Core.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("StoresId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -194,7 +204,7 @@ namespace BusinessManagement.Core.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("StoresId");
+                    b.HasIndex("StoreId");
 
                     b.ToTable("ProductSupplier", (string)null);
                 });
@@ -349,7 +359,6 @@ namespace BusinessManagement.Core.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfileImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -487,6 +496,21 @@ namespace BusinessManagement.Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BusinessManagement.Core.Entities.Staff", b =>
+                {
+                    b.HasBaseType("BusinessManagement.Core.UserIdentify.User");
+
+                    b.Property<bool>("IsHead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Staff", (string)null);
+                });
+
             modelBuilder.Entity("BusinessManagement.Core.Entities.Product", b =>
                 {
                     b.HasOne("BusinessManagement.Core.Entities.Store", "Stores")
@@ -502,7 +526,7 @@ namespace BusinessManagement.Core.Migrations
                 {
                     b.HasOne("BusinessManagement.Core.Entities.Store", "Stores")
                         .WithMany("ProductSuppliers")
-                        .HasForeignKey("StoresId")
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -564,11 +588,30 @@ namespace BusinessManagement.Core.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BusinessManagement.Core.Entities.Staff", b =>
+                {
+                    b.HasOne("BusinessManagement.Core.UserIdentify.User", null)
+                        .WithOne()
+                        .HasForeignKey("BusinessManagement.Core.Entities.Staff", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("BusinessManagement.Core.Entities.Store", "Stores")
+                        .WithMany("Staffs")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stores");
+                });
+
             modelBuilder.Entity("BusinessManagement.Core.Entities.Store", b =>
                 {
                     b.Navigation("ProductSuppliers");
 
                     b.Navigation("Products");
+
+                    b.Navigation("Staffs");
                 });
 
             modelBuilder.Entity("BusinessManagement.Core.UserIdentify.Role", b =>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BusinessManagement.Core.Migrations
 {
-    public partial class nvarchar250 : Migration
+    public partial class PutRelationshipOnPS : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +61,9 @@ namespace BusinessManagement.Core.Migrations
                     CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SizeCode = table.Column<string>(type: "varchar(5)", maxLength: 5, nullable: false),
-                    SizeValue = table.Column<int>(type: "int", nullable: false)
+                    SizeValue = table.Column<int>(type: "int", nullable: false),
+                    Season = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Weather = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,7 +120,7 @@ namespace BusinessManagement.Core.Migrations
                     Guid = table.Column<string>(type: "nvarchar(450)", nullable: false, defaultValue: "NEWID()"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -197,15 +199,15 @@ namespace BusinessManagement.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StoresId = table.Column<int>(type: "int", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
                     ProductSupplierName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductSupplier", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductSupplier_Store_StoresId",
-                        column: x => x.StoresId,
+                        name: "FK_ProductSupplier_Store_StoreId",
+                        column: x => x.StoreId,
                         principalTable: "Store",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -270,6 +272,30 @@ namespace BusinessManagement.Core.Migrations
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Staff",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    IsHead = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Staff", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Staff_Store_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Store",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Staff_User_Id",
+                        column: x => x.Id,
+                        principalTable: "User",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -360,15 +386,20 @@ namespace BusinessManagement.Core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSupplier_StoresId",
+                name: "IX_ProductSupplier_StoreId",
                 table: "ProductSupplier",
-                column: "StoresId");
+                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipt_Id",
                 table: "Receipt",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staff_StoreId",
+                table: "Staff",
+                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Store_Id",
@@ -434,6 +465,9 @@ namespace BusinessManagement.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Receipt");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "UserRole");

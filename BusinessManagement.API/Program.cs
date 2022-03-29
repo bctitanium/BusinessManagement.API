@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiIn
 builder.Services.AddControllers(); //add tk này là zo nè chưa hiểu controller thì có liên qua j tới cái add-migration lắm tại cũng chưa có cái controller nào
 builder.Services.AddCors();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+builder.Services.AddScoped<IProductSupplierRepository, ProductSupplierRepository>();
 
 builder.Services.AddCors(options =>
 {

@@ -17,6 +17,7 @@ namespace BusinessManagement.Core.Database
         public virtual DbSet<ProductMaterial>  ProductMaterials  { get; set; } = null!;
         public virtual DbSet<ProductSupplier>  ProductSuppliers  { get; set; } = null!;
         public virtual DbSet<Receipt>          Receipts          { get; set; } = null!;
+        public virtual DbSet<Staff>            Staffs            { get; set; } = null!;
         public virtual DbSet<Store>            Stores            { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -117,6 +118,10 @@ namespace BusinessManagement.Core.Database
                 entity.Property(e => e.SizeCode).IsRequired().HasColumnType("varchar").HasMaxLength(5);
 
                 entity.Property(e => e.SizeValue).IsRequired();
+
+                entity.Property(e => e.Season).IsRequired().HasColumnType("nvarchar").HasMaxLength(20);
+
+                entity.Property(e => e.Weather).IsRequired().HasColumnType("nvarchar").HasMaxLength(20);
             });
 
             builder.Entity<ProductMaterial>(entity =>
@@ -138,7 +143,7 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasOne(ps => ps.Stores)
                       .WithMany(s => s.ProductSuppliers)
-                      .HasForeignKey(ps => ps.StoresId)
+                      .HasForeignKey(ps => ps.StoreId)
                       .IsRequired()
                       .OnDelete(DeleteBehavior.Cascade);
             });
@@ -152,6 +157,17 @@ namespace BusinessManagement.Core.Database
                 entity.Property(e => e.ReceiptDate).IsRequired().HasColumnType("datetime");
 
                 entity.Property(e => e.ReceiptAmount).IsRequired().HasColumnType("float");
+            });
+
+            builder.Entity<Staff>(entity =>
+            {
+                entity.ToTable("Staff");
+
+                entity.HasOne(st => st.Stores)
+                      .WithMany(s => s.Staffs)
+                      .HasForeignKey(st => st.StoreId)
+                      .IsRequired()
+                     .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Store>(entity =>

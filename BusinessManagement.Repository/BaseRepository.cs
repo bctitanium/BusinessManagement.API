@@ -46,14 +46,13 @@ namespace BusinessManagement.Repository
             _dbSet.AddRange(entities);
         }
 
-        public void Update(T entity)
-        {
-            _dbSet.Update(entity);
-        }
-
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
+        }
+        public void Update(T entity)
+        {
+            _dbSet.Update(entity);
         }
 
         public void DeleteRange(IEnumerable<T> entities)

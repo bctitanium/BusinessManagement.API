@@ -9,9 +9,9 @@ namespace BusinessManagement.Contract
         Task<T?> FindByNameAsync(string name, CancellationToken cancellationToken = default);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
-        void Update(T entity);
         void Delete(T entity);
         void DeleteRange(IEnumerable<T> entities);
+        void Update(T entity);
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
