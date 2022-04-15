@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BusinessManagement.Core.Entities
+﻿namespace BusinessManagement.Core.Entities
 {
     public class Product : BaseEntity
     {
@@ -14,7 +12,7 @@ namespace BusinessManagement.Core.Entities
         public string?    ImageFile          { get; set; }
 
         public virtual Store? Stores { get; set; }
-
+        public virtual Category? Categories { get; set; }
         public enum SizeChart
         {
             XS, S, M, L, XL, XXL
