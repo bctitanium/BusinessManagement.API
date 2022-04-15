@@ -12,10 +12,10 @@ namespace BusinessManagement.Core.Database
 
         public virtual DbSet<DetailedReceipts> DetailedReceipts  { get; set; } = null!;
         public virtual DbSet<Product>          Products          { get; set; } = null!;
-        public virtual DbSet<ProductBrand>     ProductBrands     { get; set; } = null!;
-        public virtual DbSet<ProductCategory>  ProductCategories { get; set; } = null!;
-        public virtual DbSet<ProductMaterial>  ProductMaterials  { get; set; } = null!;
-        public virtual DbSet<ProductSupplier>  ProductSuppliers  { get; set; } = null!;
+        public virtual DbSet<Brand>            Brands            { get; set; } = null!;
+        public virtual DbSet<Category>         Categories        { get; set; } = null!;
+        public virtual DbSet<Material>         Materials         { get; set; } = null!;
+        public virtual DbSet<Supplier>         Suppliers         { get; set; } = null!;
         public virtual DbSet<Receipt>          Receipts          { get; set; } = null!;
         public virtual DbSet<Staff>            Staffs            { get; set; } = null!;
         public virtual DbSet<Store>            Stores            { get; set; } = null!;
@@ -53,6 +53,11 @@ namespace BusinessManagement.Core.Database
                       .HasForeignKey(ur => ur.UserId)
                       .IsRequired()
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer");
             });
 
             builder.Entity<DetailedReceipts>(entity =>
@@ -96,24 +101,24 @@ namespace BusinessManagement.Core.Database
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            builder.Entity<ProductBrand>(entity =>
+            builder.Entity<Brand>(entity =>
             {
-                entity.ToTable("ProductBrand");
+                entity.ToTable("Brand");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.ProductBrandName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
+                entity.Property(e => e.BrandName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
 
                 entity.Property(e => e.CountryCode).IsRequired().HasColumnType("varchar").HasMaxLength(5);
             });
 
-            builder.Entity<ProductCategory>(entity =>
+            builder.Entity<Category>(entity =>
             {
-                entity.ToTable("ProductCategory");
+                entity.ToTable("Category");
 
                 entity.HasIndex(e => e.Id).IsUnique();
 
-                entity.Property(e => e.Category).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
+                entity.Property(e => e.CategoryName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
 
                 entity.Property(e => e.SizeCode).IsRequired().HasColumnType("varchar").HasMaxLength(5);
 
@@ -122,30 +127,29 @@ namespace BusinessManagement.Core.Database
                 entity.Property(e => e.Season).IsRequired().HasColumnType("nvarchar").HasMaxLength(20);
 
                 entity.Property(e => e.Weather).IsRequired().HasColumnType("nvarchar").HasMaxLength(20);
-            });
 
-            builder.Entity<ProductMaterial>(entity =>
-            {
-                entity.ToTable("ProductMaterial");
-
-                entity.HasIndex(e => e.Id).IsUnique();
-
-                entity.Property(e => e.ProductNaterialName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
-            });
-
-            builder.Entity<ProductSupplier>(entity =>
-            {
-                entity.ToTable("ProductSupplier");
-
-                entity.HasIndex(e => e.Id).IsUnique();
-
-                entity.Property(e => e.ProductSupplierName).IsRequired().HasColumnType("nvarchar").HasMaxLength(50);
-
-                entity.HasOne(ps => ps.Stores)
-                      .WithMany(s => s.ProductSuppliers)
-                      .HasForeignKey(ps => ps.StoreId)
+                entity.HasOne(pc => pc.Products)
+                      .WithOne(p => p.Categories)
                       .IsRequired()
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Material>(entity =>
+            {
+                entity.ToTable("Material");
+
+                entity.HasIndex(e => e.Id).IsUnique();
+
+                entity.Property(e => e.MaterialName).IsRequired().HasColumnType("nvarchar").HasMaxLength(30);
+            });
+
+            builder.Entity<Supplier>(entity =>
+            {
+                entity.ToTable("Supplier");
+
+                entity.HasIndex(e => e.Id).IsUnique();
+
+                entity.Property(e => e.SupplierName).IsRequired().HasColumnType("nvarchar").HasMaxLength(50);
             });
 
             builder.Entity<Receipt>(entity =>
@@ -167,7 +171,7 @@ namespace BusinessManagement.Core.Database
                       .WithMany(s => s.Staffs)
                       .HasForeignKey(st => st.StoreId)
                       .IsRequired()
-                     .OnDelete(DeleteBehavior.Cascade);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Store>(entity =>

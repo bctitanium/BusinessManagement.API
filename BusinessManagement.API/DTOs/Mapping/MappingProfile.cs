@@ -11,9 +11,13 @@ namespace BusinessManagement.API.DTOs.Mapping
             CreateMap<StoreDTO, Store>()
                 .ForMember(s => s.Id, opt => opt.Ignore());
 
-            CreateMap<ProductSupplier, ProductSupplierDTO>();
-            CreateMap<ProductSupplierDTO, ProductSupplier>()
+            CreateMap<Supplier, SupplierDTO>();
+            CreateMap<SupplierDTO, Supplier>()
                 .ForMember(ps => ps.Id, opt => opt.Ignore());
+
+            CreateMap<Product, ProductDTO>();
+            CreateMap<ProductDTO, Product>()
+                .ForMember(p => p.Id, opt => opt.Ignore());
         }
     }
 }

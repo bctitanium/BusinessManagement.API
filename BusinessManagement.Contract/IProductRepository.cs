@@ -2,7 +2,7 @@
 
 namespace BusinessManagement.Contract
 {
-    public interface IProductSupplierRepository : IBaseRepository<ProductSupplier>
+    public interface IProductRepository : IBaseRepository<Product>
     {
 
     }
