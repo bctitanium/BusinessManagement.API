@@ -2,7 +2,10 @@
 {
     public class Brand : BaseEntity
     {
-        public string BrandName { get; set; } = string.Empty;
-        public string CountryCode      { get; set; } = string.Empty;
+        public int    ProductId     { get; set; }
+        public string BrandName     { get; set; } = string.Empty;
+        public string CountryCode   { get; set; } = string.Empty;
+
+        public virtual Product? Products { get; set; }
     }
 }
