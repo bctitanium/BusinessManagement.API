@@ -10,6 +10,7 @@
         public int?    SizeValue           { get; set; }
         public string  Season              { get; set; } = string.Empty;
         public string  Weather             { get; set; } = string.Empty;
+        public string  MainMaterial        { get; set; } = string.Empty;
 
         public virtual Product? Products { get; set; }
     }

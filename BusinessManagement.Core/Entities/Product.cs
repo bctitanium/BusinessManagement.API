@@ -11,8 +11,13 @@
         public SizeChart  Size               { get; set; }
         public string?    ImageFile          { get; set; }
 
-        public virtual Store? Stores { get; set; }
-        public virtual Category? Categories { get; set; }
+        public virtual Store?    Stores      { get; set; }
+        public virtual Category? Categories  { get; set; }
+        public virtual Brand?    Brands      { get; set; }
+
+        public virtual ICollection<SupplyProduct>    SupplyProducts   { get; set; } = new HashSet<SupplyProduct>();
+        public virtual ICollection<DetailedReceipts> DetailedReceipts { get; set; } = new HashSet<DetailedReceipts>();
+
         public enum SizeChart
         {
             XS, S, M, L, XL, XXL
