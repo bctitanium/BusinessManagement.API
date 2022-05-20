@@ -111,7 +111,7 @@ namespace BusinessManagement.Core.Migrations
                     b.ToTable("Category", (string)null);
                 });
 
-            modelBuilder.Entity("BusinessManagement.Core.Entities.DetailedReceipts", b =>
+            modelBuilder.Entity("BusinessManagement.Core.Entities.DetailedReceipt", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,9 +168,6 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<double>("SellPrice")
                         .HasColumnType("float");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -263,6 +260,9 @@ namespace BusinessManagement.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SupplierName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -353,7 +353,7 @@ namespace BusinessManagement.Core.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreatedDate")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime?>("DateOfBirth")
@@ -594,7 +594,7 @@ namespace BusinessManagement.Core.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("BusinessManagement.Core.Entities.DetailedReceipts", b =>
+            modelBuilder.Entity("BusinessManagement.Core.Entities.DetailedReceipt", b =>
                 {
                     b.HasOne("BusinessManagement.Core.Entities.Product", "Products")
                         .WithMany("DetailedReceipts")

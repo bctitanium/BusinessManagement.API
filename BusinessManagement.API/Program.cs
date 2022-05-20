@@ -9,12 +9,18 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); //để đọc cái file dbcontext
-builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "BuinessManahementApi", Version = "v1" })); //cho swagger
+builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "BusinessManagement", Version = "v1" })); //cho swagger
 builder.Services.AddControllers(); //add tk này là zo nè chưa hiểu controller thì có liên qua j tới cái add-migration lắm tại cũng chưa có cái controller nào
 builder.Services.AddCors();
+
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IReceiptRepository, ReceiptRepository>();
+builder.Services.AddScoped<IDetailedReceiptRepository, DetailedReceiptRepository>();
+builder.Services.AddScoped<ISupplyProductRepository, SupplyProductRepository>();
 
 builder.Services.AddCors(options =>
 {

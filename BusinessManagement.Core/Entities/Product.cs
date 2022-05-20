@@ -8,7 +8,6 @@
         public double?    BuyPrice           { get; set; }
         public double     SellPrice          { get; set; }
         public int        Quantity           { get; set; }
-        public SizeChart  Size               { get; set; }
         public string?    ImageFile          { get; set; }
 
         public virtual Store?    Stores      { get; set; }
@@ -16,11 +15,6 @@
         public virtual Brand?    Brands      { get; set; }
 
         public virtual ICollection<SupplyProduct>    SupplyProducts   { get; set; } = new HashSet<SupplyProduct>();
-        public virtual ICollection<DetailedReceipts> DetailedReceipts { get; set; } = new HashSet<DetailedReceipts>();
-
-        public enum SizeChart
-        {
-            XS, S, M, L, XL, XXL
-        }
+        public virtual ICollection<DetailedReceipt>  DetailedReceipts { get; set; } = new HashSet<DetailedReceipt>();
     }
 }
