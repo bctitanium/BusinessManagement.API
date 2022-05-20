@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BusinessManagement.Core.Migrations
 {
-    public partial class ok : Migration
+    public partial class usermanager : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,7 @@ namespace BusinessManagement.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreId = table.Column<int>(type: "int", nullable: false),
                     SupplierName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -62,7 +63,7 @@ namespace BusinessManagement.Core.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -119,7 +120,6 @@ namespace BusinessManagement.Core.Migrations
                     BuyPrice = table.Column<double>(type: "float", nullable: false),
                     SellPrice = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Size = table.Column<int>(type: "int", nullable: false),
                     ImageFile = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

@@ -10,7 +10,7 @@ namespace BusinessManagement.Core.Database
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public virtual DbSet<DetailedReceipts> DetailedReceipts  { get; set; } = null!;
+        public virtual DbSet<DetailedReceipt>  DetailedReceipts  { get; set; } = null!;
         public virtual DbSet<Product>          Products          { get; set; } = null!;
         public virtual DbSet<Brand>            Brands            { get; set; } = null!;
         public virtual DbSet<Category>         Categories        { get; set; } = null!;
@@ -60,7 +60,7 @@ namespace BusinessManagement.Core.Database
                 entity.ToTable("Customer");
             });
 
-            builder.Entity<DetailedReceipts>(entity =>
+            builder.Entity<DetailedReceipt>(entity =>
             {
                 entity.ToTable("DetailedReceipt");
 
@@ -99,10 +99,6 @@ namespace BusinessManagement.Core.Database
                       .HasColumnType("float");
                 
                 entity.Property(e => e.Quantity)
-                      .IsRequired()
-                      .HasColumnType("int");
-
-                entity.Property(e => e.Size)
                       .IsRequired()
                       .HasColumnType("int");
 

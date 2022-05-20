@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BusinessManagement.API.DTOs.Create
 {
-    [ModelBinder(typeof(MultipleSourcesModelBinder<CreateUserDTO>))]
     public class CreateUserDTO
     {
         [Required]

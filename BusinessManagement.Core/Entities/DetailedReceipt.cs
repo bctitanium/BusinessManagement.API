@@ -1,6 +1,6 @@
 ﻿namespace BusinessManagement.Core.Entities
 {
-    public class DetailedReceipts : BaseEntity
+    public class DetailedReceipt : BaseEntity
     {
         public int    ProductId     { get; set; }
         public int    ReceiptId     { get; set; }
