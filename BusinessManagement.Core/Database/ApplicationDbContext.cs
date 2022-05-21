@@ -30,10 +30,7 @@ namespace BusinessManagement.Core.Database
 
                 entity.HasIndex(e => e.Guid)
                       .IsUnique();
-
-                entity.Property(e => e.Guid)
-                      .HasDefaultValue("NEWID()");
-
+                
                 entity.Property(e => e.CreatedDate)
                       .HasColumnType("datetime");
             });

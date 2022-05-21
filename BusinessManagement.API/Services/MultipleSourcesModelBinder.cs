@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace BusinessManagement.Services
+namespace BusinessManagement.API.Services
 {
     public class MultipleSourcesModelBinder<T> : IModelBinder where T : class
     {

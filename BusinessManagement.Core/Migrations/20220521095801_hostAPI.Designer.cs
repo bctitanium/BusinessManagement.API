@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessManagement.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220520132024_usermanager")]
-    partial class usermanager
+    [Migration("20220521095801_hostAPI")]
+    partial class hostAPI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -351,6 +351,10 @@ namespace BusinessManagement.Core.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -378,9 +382,7 @@ namespace BusinessManagement.Core.Migrations
 
                     b.Property<string>("Guid")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValue("NEWID()");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");

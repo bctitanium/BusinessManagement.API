@@ -2,14 +2,14 @@
 using BusinessManagement.API.DTOs;
 using BusinessManagement.API.DTOs.Create;
 using BusinessManagement.Core.UserIdentify;
-using BusinessManagement.Models;
+using BusinessManagement.API.Models;
 using BusinessManagement.Repository;
-using BusinessManagement.Services;
+using BusinessManagement.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using static BusinessManagement.Utils.Constants;
+using static BusinessManagement.API.Utils.Constants;
 
 namespace BusinessManagement.API.Controllers
 {
@@ -134,7 +134,7 @@ namespace BusinessManagement.API.Controllers
             EmailModel emailModel = new()
             {
                 To = user.Email,
-                Subject = $"Welcome {user.FullName} to BlogHub",
+                Subject = $"Welcome {user.FullName} to Clothes Store",
                 Body = templateBody
             };
 

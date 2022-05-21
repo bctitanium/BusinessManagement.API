@@ -1,4 +1,4 @@
-﻿namespace BusinessManagement.Utils
+﻿namespace BusinessManagement.API.Utils
 {
     public static class Constants
     {

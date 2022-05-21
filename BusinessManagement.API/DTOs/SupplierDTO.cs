@@ -1,6 +1,4 @@
-﻿using BusinessManagement.Core.Entities;
-
-namespace BusinessManagement.API.DTOs
+﻿namespace BusinessManagement.API.DTOs
 {
     public class SupplierDTO : BaseDTO
     {

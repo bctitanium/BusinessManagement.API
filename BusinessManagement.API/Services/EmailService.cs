@@ -1,9 +1,9 @@
-﻿using BusinessManagement.Models;
-using BusinessManagement.Settings;
+﻿using BusinessManagement.API.Models;
+using BusinessManagement.API.Settings;
 using Microsoft.Extensions.Options;
 using System.Net.Mail;
 
-namespace BusinessManagement.Services
+namespace BusinessManagement.API.Services
 {
     public class EmailService : IEmailService
     {
