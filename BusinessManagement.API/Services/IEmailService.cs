@@ -1,6 +1,6 @@
-﻿using BusinessManagement.Models;
+﻿using BusinessManagement.API.Models;
 
-namespace BusinessManagement.Services
+namespace BusinessManagement.API.Services
 {
     public interface IEmailService
     {

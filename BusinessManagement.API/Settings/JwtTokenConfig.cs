@@ -1,4 +1,4 @@
-﻿namespace BusinessManagement.Settings
+﻿namespace BusinessManagement.API.Settings
 {
     public class JwtTokenConfig
     {

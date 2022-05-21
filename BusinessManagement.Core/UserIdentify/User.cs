@@ -4,9 +4,10 @@ namespace BusinessManagement.Core.UserIdentify
 {
     public class User : IdentityUser
     {
-        public string     Guid         { get; set; } = string.Empty; //null! ???
+        public string     Guid         { get; set; } = System.Guid.NewGuid().ToString();
         public string     FullName     { get; set; } = string.Empty;
         public string     Gender       { get; set; } = string.Empty;
+        public string     Address      { get; set; } = string.Empty;
         public string   ? ProfileImage { get; set; }
         public DateTime ? DateOfBirth  { get; set; }
         public DateTime   CreatedDate  { get; set; } = DateTime.UtcNow;

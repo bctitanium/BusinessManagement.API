@@ -51,6 +51,18 @@ namespace BusinessManagement.API.DTOs.Mapping
             CreateMap<Role, RoleDTO>();
             CreateMap<RoleDTO, Role>()
                 .ForMember(d => d.Id, opt => opt.Ignore());
+
+            CreateMap<Customer, CustomerDTO>()
+                .ForMember(d => d.Roles, opt => opt.MapFrom(s => s.UserRoles.Select(ur => ur.Role!.Name)));
+            CreateMap<CustomerDTO, Customer>()
+                .ForMember(d => d.Guid, opt => opt.Ignore());
+            CreateMap<CreateUserDTO, Customer>();
+            
+            CreateMap<Staff, StaffDTO>()
+                .ForMember(d => d.Roles, opt => opt.MapFrom(s => s.UserRoles.Select(ur => ur.Role!.Name)));
+            CreateMap<StaffDTO, Staff>()
+                .ForMember(d => d.Guid, opt => opt.Ignore());
+            CreateMap<CreateUserDTO, Staff>();
         }
     }
 }

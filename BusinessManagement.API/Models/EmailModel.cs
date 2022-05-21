@@ -1,4 +1,4 @@
-﻿namespace BusinessManagement.Models
+﻿namespace BusinessManagement.API.Models
 {
     public class EmailModel
     {
