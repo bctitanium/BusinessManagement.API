@@ -41,18 +41,6 @@ namespace BusinessManagement.API.Controllers
             return Ok(_mapper.Map<StoreDTO>(store));
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(StoreDTO sdto, CancellationToken cancellationToken = default) //cái này để tạo cửa hàng
-        //{
-        //    var store = _mapper.Map<Store>(sdto);
-
-        //    _storeRepository.Add(store);
-
-        //    await _storeRepository.SaveChangesAsync(cancellationToken);
-
-        //    return Ok(_mapper.Map<StoreDTO>(store));
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] StoreDTO sdto, CancellationToken cancellationToken = default)
         {

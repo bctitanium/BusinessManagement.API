@@ -27,7 +27,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DetailedReceiptDTO drdto, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Create([FromBody] DetailedReceiptDTO drdto, CancellationToken cancellationToken = default)
         {
             var detailedReceipt = _mapper.Map<DetailedReceipt>(drdto);
 

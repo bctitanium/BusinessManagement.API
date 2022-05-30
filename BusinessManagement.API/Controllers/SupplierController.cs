@@ -27,7 +27,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(SupplierDTO psdto, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Create([FromBody] SupplierDTO psdto, CancellationToken cancellationToken = default)
         {
             var supplier = _mapper.Map<Supplier>(psdto);
 

@@ -25,6 +25,8 @@ namespace BusinessManagement.API.DTOs
         public bool?     IsActive     { get; set; }
         public bool      IsDeleted    { get; set; } = false;
 
+        public bool EmailConfirmed { get; set; } = true;
+
         public ICollection<string> Roles { get; set; } = Array.Empty<string>();
     }
 }

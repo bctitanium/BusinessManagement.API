@@ -27,7 +27,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CustomerDTO cdto, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Create([FromBody] CustomerDTO cdto, CancellationToken cancellationToken = default)
         {
             var customer = _mapper.Map<Customer>(cdto);
 
