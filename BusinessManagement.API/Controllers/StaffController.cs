@@ -27,7 +27,7 @@ namespace BusinessManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(StaffDTO sdto, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> Create([FromBody] StaffDTO sdto, CancellationToken cancellationToken = default)
         {
             var staff = _mapper.Map<Staff>(sdto);
 

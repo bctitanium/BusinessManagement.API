@@ -20,16 +20,16 @@ builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiIn
 builder.Services.AddControllers(); //add tk này là zo nè chưa hiểu controller thì có liên qua j tới cái add-migration lắm tại cũng chưa có cái controller nào
 builder.Services.AddCors();
 
-builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<IDetailedReceiptRepository, DetailedReceiptRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IReceiptRepository, ReceiptRepository>();
-builder.Services.AddScoped<IStaffRepository, StaffRepository>();
-builder.Services.AddScoped<IStoreRepository, StoreRepository>();
-builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
-builder.Services.AddScoped<ISupplyProductRepository, SupplyProductRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>()
+                .AddScoped<ICategoryRepository, CategoryRepository>()
+                .AddScoped<ICustomerRepository, CustomerRepository>()
+                .AddScoped<IDetailedReceiptRepository, DetailedReceiptRepository>()
+                .AddScoped<IProductRepository, ProductRepository>()
+                .AddScoped<IReceiptRepository, ReceiptRepository>()
+                .AddScoped<IStaffRepository, StaffRepository>()
+                .AddScoped<IStoreRepository, StoreRepository>()
+                .AddScoped<ISupplierRepository, SupplierRepository>()
+                .AddScoped<ISupplyProductRepository, SupplyProductRepository>();
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped(provider =>
@@ -71,13 +71,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-
-
-
-
-//builder.Services.Configure<JwtTokenConfig>(Configuration.GetSection("JwtTokenConfig"));
-//builder.Services.Configure<EmailConfig>(Configuration.GetSection("EmailConfig"));
+builder.Services.Configure<JwtTokenConfig>(builder.Configuration.GetSection("JwtTokenConfig"))
+                .Configure<EmailConfig>(builder.Configuration.GetSection("EmailConfig"));
 
 var mapperConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile()));
 IMapper mapper = mapperConfig.CreateMapper();
@@ -91,6 +86,7 @@ if (!app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     app.UseHsts();
 }
+
 app.UseSwagger();
 
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BusinessManagement.API v1"));
